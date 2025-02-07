@@ -43,10 +43,16 @@ defmodule TextClient.Impl.Player do
     [
       "Word so far: ",
       tally.letters |> Enum.join(" "),
-      "   turns left: ",
+      "   ",
+      IO.ANSI.green(),
+      "turns left: ",
+      IO.ANSI.blue(),
       tally.turns_left |> to_string,
+      IO.ANSI.green(),
       "   used so far: ",
-      tally.used |> Enum.join(",")
+      IO.ANSI.yellow(),
+      tally.used |> Enum.join(","),
+      IO.ANSI.reset()
     ]
   end
 
