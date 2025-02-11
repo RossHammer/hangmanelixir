@@ -6,24 +6,32 @@
   </div>
   <div class="flex flex-col gap-4">
     <p>
-      Turns left: {@tally.turns_left}
+      Turns left: <span class="font-bold">{@tally.turns_left}</span>
     </p>
     <p>
-      Letters used: {@tally.used |> Enum.join(", ")}
+      Letters used: <span class="font-bold">{@tally.used |> Enum.join(", ")}</span>
     </p>
     <p>
-      Word so far: {@tally.letters |> Enum.join(" ")}
+      Word so far: <span class="font-bold">{@tally.letters |> Enum.join(" ")}</span>
     </p>
 
-    <.simple_form
-      :let={f}
-      action={~p"/hangman/"}
-      for={@conn.params["make_move"]}
-      as="make_move"
-      method="put"
-    >
-      <.input field={f[:guess]} />
-      <.button type="submit">Make move</.button>
-    </.simple_form>
+    {move_status(@tally.game_state) |> raw}
+
+    <%= if @tally.game_state == :won or @tally.game_state == :lost do %>
+      <.form for={%{}} action={~p"/hangman/"} method="post">
+        <.button type="submit">Play again</.button>
+      </.form>
+    <% else %>
+      <.simple_form
+        :let={f}
+        action={~p"/hangman/"}
+        for={@conn.params["make_move"]}
+        as="make_move"
+        method="put"
+      >
+        <.input field={f[:guess]} />
+        <.button type="submit">Make move</.button>
+      </.simple_form>
+    <% end %>
   </div>
 </div>

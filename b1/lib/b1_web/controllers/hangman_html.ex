@@ -8,6 +8,21 @@ defmodule B1Web.HangmanHTML do
 
   embed_templates "hangman_html/*"
 
+  @status_fields %{
+    initializing: {"Initializing", "Guess the word"},
+    good_guess: {"good-guess", "Good guess!"},
+    bad_guess: {"bad-guess", "Bad guess!"},
+    won: {"won font-bold", "You won!"},
+    lost: {"lost font-bold", "Sorry, you lost"},
+    already_used: {"already-used", "You already used that letter"}
+  }
+
+  def move_status(status) do
+    {class, msg} = @status_fields[status]
+
+    "<div class='#{class}'><p>#{msg}</p></div>"
+  end
+
   def figure_for(0) do
     ~s{
       ┌───┐
