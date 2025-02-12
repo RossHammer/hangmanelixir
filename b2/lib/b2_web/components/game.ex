@@ -14,10 +14,12 @@ defmodule B2Web.Components.Game do
 
   def render(assigns) do
     ~H"""
-    <div phx-window-keyup="make_move">
+    <div phx-window-keyup="make_move" class="flex gap-5 items-center">
       <.live_component module={__MODULE__.Figure} tally={@tally} id="Figure" />
-      <.live_component module={__MODULE__.Alphabet} tally={@tally} id="Alphabet" />
-      <.live_component module={__MODULE__.WordSoFar} tally={@tally} id="WordSoFar" />
+      <div>
+        <.live_component module={__MODULE__.Alphabet} tally={@tally} id="Alphabet" />
+        <.live_component module={__MODULE__.WordSoFar} tally={@tally} id="WordSoFar" />
+      </div>
     </div>
     """
   end
